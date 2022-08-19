@@ -3,9 +3,13 @@ import "../css/App.css";
 import ListContacts from "./ListContacts"
 import * as ContactsAPI from "../utils/ContactsAPI"
 import CreateContact from './CreateContact';
-import {Route , Routes} from "react-router-dom"
+import {userNavigate, Route , Routes, useNavigate} from "react-router-dom"
+
 
 const App = () => {
+
+  const [contacts, setContacts] = useState([])
+  let navigate = useNavigate();
   
   const removeContact = (contact) => {
 
@@ -14,7 +18,15 @@ const App = () => {
     // contacts = contacts.filter((c) => c.id !== contact.id)
   }
 
-  const [contacts, setContacts] = useState([])
+  const createContact = (contact) => {
+    const create = async () => {
+      const res = await ContactsAPI.create(contact)
+      setContacts(contacts.concat(res))
+    }
+
+    create();
+    navigate("/");
+  };
 
   useEffect(() => {
     const getContacts = async () => {
@@ -31,7 +43,7 @@ const App = () => {
   return (
       <Routes>
         <Route exact path="/"  element={ <ListContacts contacts={contacts} onDeleteContact={removeContact}/> } />
-        <Route exact path="/create" element={ <CreateContact /> }/>
+        <Route exact path="/create" element={ <CreateContact onCreateContact={ (contact) => {createContact(contact)} }/> }/>
       </Routes>
        
   )

@@ -3,6 +3,7 @@ import "../css/App.css";
 import ListContacts from "./ListContacts"
 import * as ContactsAPI from "../utils/ContactsAPI"
 import CreateContact from './CreateContact';
+import {Route , Routes} from "react-router-dom"
 
 const App = () => {
   
@@ -14,7 +15,6 @@ const App = () => {
   }
 
   const [contacts, setContacts] = useState([])
-  const [screen , setScreen] = useState("create")
 
   useEffect(() => {
     const getContacts = async () => {
@@ -29,10 +29,11 @@ const App = () => {
  
 
   return (
-    <div>
-      {screen === "list" && (<ListContacts contacts = {contacts} onDeleteContact = {removeContact}/>)}
-      {screen === "create" && (<CreateContact />)}
-    </div>
+      <Routes>
+        <Route exact path="/"  element={ <ListContacts contacts={contacts} onDeleteContact={removeContact}/> } />
+        <Route exact path="/create" element={ <CreateContact /> }/>
+      </Routes>
+       
   )
 
   

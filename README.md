@@ -1,8 +1,6 @@
-# Contacts
+#Project Brief
 
-This repo is a code-along with the in-course project in the React Nanodegree program.
-
-Most of the commits in this repository correspond to videos in the program.
+This is a contact management app. You should be able to add, delete or search contacts using the API server.
 
 ## Project Setup
 
@@ -18,5 +16,7 @@ npm start
 ```
 
 Note that the Contacts app server must also be running to support the app's API calls.
+
+
 
 
